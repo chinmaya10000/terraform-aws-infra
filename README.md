@@ -1,39 +1,76 @@
-# 🚀 Secure Static Website Hosting on AWS (S3 + CloudFront + Terraform)
+# 🚀 Terraform AWS Auto-Scaling Web Infrastructure
 
-This project uses **Terraform** to deploy a secure, fast, and fully automated static website on AWS using:
+This Terraform project builds a **production-ready, auto-scaling web application infrastructure on AWS**, complete with:
 
-- 🪣 **Amazon S3** (for file storage)
-- 🌍 **CloudFront** (for global delivery and HTTPS)
-- 🛠️ **Terraform** (for infrastructure as code)
-
-🔐 **This solution follows AWS security best practices**:
-- No public access to your S3 bucket
-- Only CloudFront can read from S3
-- HTTPS is enabled by default
-- No manual steps after setup
+- ✅ VPC with public/private subnets across AZs
+- ✅ Application Load Balancer (ALB)
+- ✅ Auto Scaling Group (ASG) with Launch Templates
+- ✅ CloudWatch alarms (CPU & Network-based)
+- ✅ SNS alerts for scale events
+- ✅ EC2 access via AWS SSM (no SSH/key required)
 
 ---
 
-## ✅ What This Project Does
+## 🔧 Technologies Used
 
-- Creates a **private S3 bucket** (no public access)
-- Uploads your static files (`index.html`, `error.html`)
-- Provisions a **CloudFront CDN** in front of your S3 bucket
-- Enables **TLS/SSL** for secure access (via HTTPS)
-- Sets up **cache invalidation** when files are updated
-- Uses **Terraform** to automate everything
+- Terraform
+- AWS EC2, ALB, ASG, VPC, SSM, CloudWatch, SNS
+- Infrastructure as Code (IaC) best practices
 
 ---
 
----
-
-## 💻 Prerequisites
-
-Before running this project, you need:
-
-- ✅ [Terraform installed](https://developer.hashicorp.com/terraform/downloads)
-- ✅ [AWS CLI installed and configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
-- ✅ Basic knowledge of the terminal/command line
-- ✅ AWS account with permissions to use S3, CloudFront, and IAM
 
 ---
+
+## 📦 Features
+
+### ✅ VPC
+- Custom VPC with DNS support
+- Public and private subnets across multiple Availability Zones
+- NAT Gateway for internet access in private subnets
+
+### ✅ ALB + Target Group
+- Public ALB with listeners (HTTP + optional HTTPS)
+- Health checks
+- Listener rule forwarding to target group
+
+### ✅ Auto Scaling Group
+- Uses Launch Template
+- Dynamic scale-in/scale-out via CloudWatch alarms
+- Starts EC2 instances inside private subnets
+
+### ✅ CloudWatch Monitoring & Scaling
+- Alarms for:
+  - High CPU utilization
+  - Low CPU utilization
+  - High/Low NetworkIn traffic
+- Triggers ASG scaling policies
+- Sends notifications via SNS (Email/SMS)
+
+### ✅ SSM-Based EC2 Access
+- No key pair required
+- Secure access to instances via AWS SSM Session Manager
+
+---
+
+## 📥 Pre-Requisites
+
+- AWS CLI & credentials configured
+- Terraform v1.3+
+- A registered domain (if planning to add HTTPS/ACM)
+- (Optional) Route 53 hosted zone if using ACM with DNS validation
+
+---
+
+## 🚀 Deployment Steps
+
+1. **Clone this repository**
+   ```bash
+   git clone https://github.com/chinmaya10000/terraform-aws-infra.git
+   cd terraform-aws-infra
+   git checkout feature/prod-infra-setup
+   terraform init
+   terraform apply
+   
+
+

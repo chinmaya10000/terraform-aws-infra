@@ -1,8 +1,4 @@
-output "cloudfront_url" {
-  description = "Your HTTPS website URL"
-  value       = "https://${aws_cloudfront_distribution.cdn.domain_name}"
-}
-
-output "s3_bucket_name" {
-  value = aws_s3_bucket.website_bucket.bucket
+output "alb_dns_name" {
+  description = "DNS name of the load balancer"
+  value       = aws_lb.web_alb.dns_name
 }
