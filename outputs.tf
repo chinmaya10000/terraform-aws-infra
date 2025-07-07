@@ -1,4 +1,3 @@
 output "alb_dns_name" {
-  description = "DNS name of the load balancer"
-  value       = aws_lb.web_alb.dns_name
+  value = module.alb.alb_dns_name
 }

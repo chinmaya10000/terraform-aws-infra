@@ -17,6 +17,15 @@ locals {
     }
   }
 
+  web_ingress_cidr = "49.207.209.88/32"
+  web_tg_name      = "${local.env}-tg"
+  ami_id           = "ami-0c803b171269e2d72"
+  instance_type    = "t2.micro"
+
+  desired_capacity = 3
+  min_size         = 2
+  max_size         = 5
+
   # web_ingress_rules = {
   #   22 = "49.207.209.88/32"
   #   80 = "0.0.0.0/0"
@@ -43,4 +52,6 @@ locals {
   #     cidr_blocks = ["0.0.0.0/0"]
   #   }
   # ]
+
+  asg_notification_email = "chinmaya5056@gmail.com" # 🔁 Replace with your email
 }

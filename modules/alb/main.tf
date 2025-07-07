@@ -1,22 +1,22 @@
 # Create ALB
 resource "aws_lb" "web_alb" {
-  name               = "${local.env}-alb"
+  name               = "${var.env}-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = [for subnet in aws_subnet.public : subnet.id]
+  security_groups    = [var.alb_sg_id]
+  subnets            = var.public_subnets
 
   tags = {
-    Name = "${local.env}-web-alb"
+    Name = "${var.env}-web-alb"
   }
 }
 
 # Create ALB target group
 resource "aws_lb_target_group" "web_tg" {
-  name     = "${local.env}-tg"
+  name     = var.web_tg_name
   port     = 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.main.id
+  vpc_id   = var.vpc_id
 
   health_check {
     path                = "/"
